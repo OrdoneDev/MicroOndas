@@ -40,5 +40,35 @@ namespace WindowsFormsApp1
             MicroOndas.Instance.listFuncoesUsuario = listTemp;
             Close();
         }
+
+        private void abrirToolStripButton_Click(object sender, EventArgs e)
+        {
+            System.IO.StreamReader sr;
+            String[] elements;
+            string line;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                listTemp = new List<FuncoesDoUsuario>();
+                sr = new System.IO.StreamReader(openFileDialog1.FileName);
+
+                try
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        elements = line.Split(',');
+                        listTemp.Add(new FuncoesDoUsuario(new OpcoesAjuste(Convert.ToInt32(elements[2]), Convert.ToInt32(elements[3])), elements[0], elements[1][0]));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                sr.Close();
+
+                funcoesDoUsuarioBindingSource.DataSource = listTemp;
+            }
+        }
     }
 }

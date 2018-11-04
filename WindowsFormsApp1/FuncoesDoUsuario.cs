@@ -7,7 +7,7 @@
         {
             get { return this._nome; }
 
-            private set
+            set
             {
                 if (value.Length == 0)
                     throw new System.ArgumentOutOfRangeException("Informe o nome da função!");
@@ -21,13 +21,19 @@
         {
             get { return this._caracter; }
 
-            private set
+            set
             {
                 if (value.ToString().Trim() == "")
                     throw new System.ArgumentNullException("Informe o caracter para representação do processo de aquecimento!");
                 else
                     this._caracter = value;
             }
+        }
+
+        public FuncoesDoUsuario() : base (1, 1)
+        {
+            this.nome = "Nova função";
+            this.caracter = '.';
         }
 
         public FuncoesDoUsuario(OpcoesAjuste ajuste, string nome, char caracter) : base (ajuste.tempo, ajuste.potencia)

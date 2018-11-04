@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -46,18 +47,19 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.abrirToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.salvarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.dgvFuncoesCadastradas = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.funcoesDoUsuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.caracterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tempoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.potenciaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.funcoesDoUsuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFuncoesCadastradas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcoesDoUsuarioBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,13 +70,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 268);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(492, 25);
+            this.panel1.Size = new System.Drawing.Size(518, 25);
             this.panel1.TabIndex = 2;
             // 
             // btnSalvar
             // 
             this.btnSalvar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSalvar.Location = new System.Drawing.Point(342, 0);
+            this.btnSalvar.Location = new System.Drawing.Point(368, 0);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 25);
             this.btnSalvar.TabIndex = 1;
@@ -85,13 +87,23 @@
             // btnCancelar
             // 
             this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnCancelar.Location = new System.Drawing.Point(417, 0);
+            this.btnCancelar.Location = new System.Drawing.Point(443, 0);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 25);
             this.btnCancelar.TabIndex = 0;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dataGridView1);
+            this.panel3.Controls.Add(this.bindingNavigator1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(518, 268);
+            this.panel3.TabIndex = 4;
             // 
             // bindingNavigator1
             // 
@@ -112,7 +124,6 @@
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem,
             this.abrirToolStripButton,
-            this.salvarToolStripButton,
             this.toolStripSeparator});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
@@ -121,8 +132,8 @@
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(492, 25);
-            this.bindingNavigator1.TabIndex = 11;
+            this.bindingNavigator1.Size = new System.Drawing.Size(518, 25);
+            this.bindingNavigator1.TabIndex = 0;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
             // bindingNavigatorAddNewItem
@@ -218,88 +229,75 @@
             this.abrirToolStripButton.Name = "abrirToolStripButton";
             this.abrirToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.abrirToolStripButton.Text = "&Abrir";
-            // 
-            // salvarToolStripButton
-            // 
-            this.salvarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.salvarToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("salvarToolStripButton.Image")));
-            this.salvarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.salvarToolStripButton.Name = "salvarToolStripButton";
-            this.salvarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.salvarToolStripButton.Text = "&Salvar";
+            this.abrirToolStripButton.Click += new System.EventHandler(this.abrirToolStripButton_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
-            // dgvFuncoesCadastradas
+            // dataGridView1
             // 
-            this.dgvFuncoesCadastradas.AutoGenerateColumns = false;
-            this.dgvFuncoesCadastradas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFuncoesCadastradas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nomeDataGridViewTextBoxColumn,
             this.caracterDataGridViewTextBoxColumn,
             this.tempoDataGridViewTextBoxColumn,
             this.potenciaDataGridViewTextBoxColumn});
-            this.dgvFuncoesCadastradas.DataSource = this.funcoesDoUsuarioBindingSource;
-            this.dgvFuncoesCadastradas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvFuncoesCadastradas.Location = new System.Drawing.Point(0, 25);
-            this.dgvFuncoesCadastradas.MultiSelect = false;
-            this.dgvFuncoesCadastradas.Name = "dgvFuncoesCadastradas";
-            this.dgvFuncoesCadastradas.Size = new System.Drawing.Size(492, 243);
-            this.dgvFuncoesCadastradas.TabIndex = 12;
+            this.dataGridView1.DataSource = this.funcoesDoUsuarioBindingSource;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(518, 243);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // funcoesDoUsuarioBindingSource
+            // 
+            this.funcoesDoUsuarioBindingSource.DataSource = typeof(WindowsFormsApp1.FuncoesDoUsuario);
             // 
             // nomeDataGridViewTextBoxColumn
             // 
             this.nomeDataGridViewTextBoxColumn.DataPropertyName = "nome";
             this.nomeDataGridViewTextBoxColumn.HeaderText = "nome";
             this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // caracterDataGridViewTextBoxColumn
             // 
             this.caracterDataGridViewTextBoxColumn.DataPropertyName = "caracter";
             this.caracterDataGridViewTextBoxColumn.HeaderText = "caracter";
             this.caracterDataGridViewTextBoxColumn.Name = "caracterDataGridViewTextBoxColumn";
-            this.caracterDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // tempoDataGridViewTextBoxColumn
             // 
             this.tempoDataGridViewTextBoxColumn.DataPropertyName = "tempo";
             this.tempoDataGridViewTextBoxColumn.HeaderText = "tempo";
             this.tempoDataGridViewTextBoxColumn.Name = "tempoDataGridViewTextBoxColumn";
-            this.tempoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // potenciaDataGridViewTextBoxColumn
             // 
             this.potenciaDataGridViewTextBoxColumn.DataPropertyName = "potencia";
             this.potenciaDataGridViewTextBoxColumn.HeaderText = "potencia";
             this.potenciaDataGridViewTextBoxColumn.Name = "potenciaDataGridViewTextBoxColumn";
-            this.potenciaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // funcoesDoUsuarioBindingSource
-            // 
-            this.funcoesDoUsuarioBindingSource.DataSource = typeof(WindowsFormsApp1.FuncoesDoUsuario);
             // 
             // FrmCadastroFuncoes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 293);
-            this.Controls.Add(this.dgvFuncoesCadastradas);
-            this.Controls.Add(this.bindingNavigator1);
+            this.ClientSize = new System.Drawing.Size(518, 293);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Name = "FrmCadastroFuncoes";
             this.Text = "Cadastro de funções do usuário";
             this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFuncoesCadastradas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcoesDoUsuarioBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -307,6 +305,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.BindingNavigator bindingNavigator1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -320,13 +319,13 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton abrirToolStripButton;
-        private System.Windows.Forms.ToolStripButton salvarToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.DataGridView dgvFuncoesCadastradas;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource funcoesDoUsuarioBindingSource;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn caracterDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tempoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn potenciaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource funcoesDoUsuarioBindingSource;
     }
 }

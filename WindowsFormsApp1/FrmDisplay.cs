@@ -53,6 +53,7 @@ namespace WindowsFormsApp1
         {
             MicroOndas.Instance.DefinirAquecimento(new OpcoesAjuste(funcao.tempo, funcao.potencia));
 
+            setPotenciaDisplay(MicroOndas.Instance.ajuste.potencia);
             setEnableBotoes(true);
 
             //Refactor to thread
