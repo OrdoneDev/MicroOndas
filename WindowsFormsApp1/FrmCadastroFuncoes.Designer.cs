@@ -34,6 +34,7 @@
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -48,7 +49,6 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.abrirToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.funcoesDoUsuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,9 +57,9 @@
             this.potenciaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcoesDoUsuarioBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,6 +104,22 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(518, 268);
             this.panel3.TabIndex = 4;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nomeDataGridViewTextBoxColumn,
+            this.caracterDataGridViewTextBoxColumn,
+            this.tempoDataGridViewTextBoxColumn,
+            this.potenciaDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.funcoesDoUsuarioBindingSource;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(518, 243);
+            this.dataGridView1.TabIndex = 1;
             // 
             // bindingNavigator1
             // 
@@ -236,22 +252,6 @@
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nomeDataGridViewTextBoxColumn,
-            this.caracterDataGridViewTextBoxColumn,
-            this.tempoDataGridViewTextBoxColumn,
-            this.potenciaDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.funcoesDoUsuarioBindingSource;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(518, 243);
-            this.dataGridView1.TabIndex = 1;
-            // 
             // funcoesDoUsuarioBindingSource
             // 
             this.funcoesDoUsuarioBindingSource.DataSource = typeof(WindowsFormsApp1.FuncoesDoUsuario);
@@ -259,26 +259,29 @@
             // nomeDataGridViewTextBoxColumn
             // 
             this.nomeDataGridViewTextBoxColumn.DataPropertyName = "nome";
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "nome";
+            this.nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
             this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
             // 
             // caracterDataGridViewTextBoxColumn
             // 
             this.caracterDataGridViewTextBoxColumn.DataPropertyName = "caracter";
-            this.caracterDataGridViewTextBoxColumn.HeaderText = "caracter";
+            this.caracterDataGridViewTextBoxColumn.HeaderText = "Caracter";
+            this.caracterDataGridViewTextBoxColumn.MaxInputLength = 1;
             this.caracterDataGridViewTextBoxColumn.Name = "caracterDataGridViewTextBoxColumn";
             // 
             // tempoDataGridViewTextBoxColumn
             // 
             this.tempoDataGridViewTextBoxColumn.DataPropertyName = "tempo";
-            this.tempoDataGridViewTextBoxColumn.HeaderText = "tempo";
+            this.tempoDataGridViewTextBoxColumn.HeaderText = "Tempo";
             this.tempoDataGridViewTextBoxColumn.Name = "tempoDataGridViewTextBoxColumn";
+            this.tempoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // potenciaDataGridViewTextBoxColumn
             // 
             this.potenciaDataGridViewTextBoxColumn.DataPropertyName = "potencia";
-            this.potenciaDataGridViewTextBoxColumn.HeaderText = "potencia";
+            this.potenciaDataGridViewTextBoxColumn.HeaderText = "Potencia";
             this.potenciaDataGridViewTextBoxColumn.Name = "potenciaDataGridViewTextBoxColumn";
+            this.potenciaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmCadastroFuncoes
             // 
@@ -292,10 +295,10 @@
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcoesDoUsuarioBindingSource)).EndInit();
             this.ResumeLayout(false);
 
