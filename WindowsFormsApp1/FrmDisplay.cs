@@ -6,13 +6,17 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
     public partial class frmDisplay : Form
     {
+        private static Thread task;
+        private delegate void SetTextCallback(string texto);
+        private FuncoesDoUsuario funcao;
+
         public frmDisplay()
         {
             InitializeComponent();
@@ -20,14 +24,14 @@ namespace WindowsFormsApp1
             criarFuncoesUsuario();
         }
 
-        private void setTempoDisplay(int value)
+        private void setTempoDisplay(string value)
         {
             string tempo = "";
 
-            tempo = Math.Round((double)(value / 60)).ToString("00") + ":" + Math.Round((double)(value % 60)).ToString("00");
+            tempo = Math.Round((double)(Convert.ToInt32(value) / 60)).ToString("00") + ":" + Math.Round((double)(Convert.ToInt32(value) % 60)).ToString("00");
 
             lblStatusTempo.Text = tempo;
-            tbTempo.Value = value;
+            tbTempo.Value = Convert.ToInt32(value);
         }
 
         private void setPotenciaDisplay(int value)
@@ -49,33 +53,49 @@ namespace WindowsFormsApp1
             pFuncoesRapidas.Enabled = !status;
         }
 
-        private void Aquecer(FuncoesDoUsuario funcao)
+        private void MostrarStatusSobreAquecimento()
         {
-            MicroOndas.Instance.DefinirAquecimento(new OpcoesAjuste(funcao.tempo, funcao.potencia));
+            SetTextCallback d;
 
-            setPotenciaDisplay(MicroOndas.Instance.ajuste.potencia);
-            setEnableBotoes(true);
-
-            //Refactor to thread
             for (int i = MicroOndas.Instance.ajuste.tempo; i >= 0; i--)
             {
                 Application.DoEvents();
-                setTempoDisplay(i);
-                setStatusAquecimentoDisplay("Aquecimento " + funcao.nome + new string(funcao.caracter, ((MicroOndas.Instance.ajuste.tempo - i) * MicroOndas.Instance.ajuste.potencia) % 40));
-                System.Threading.Thread.Sleep(1000);
+                d = new SetTextCallback(setStatusAquecimentoDisplay);
+                this.Invoke(d, new object[] { "Aquecimento " + funcao.nome + new string(funcao.caracter, ((MicroOndas.Instance.ajuste.tempo - i) * MicroOndas.Instance.ajuste.potencia) % 40) });
+                d = new SetTextCallback(setTempoDisplay);
+                this.Invoke(d, new object[] { i.ToString() });
+                Thread.Sleep(1000);
             }
 
-            setEnableBotoes(false);
             SystemSounds.Beep.Play();
             lblStatus.Text = "Aquecida";
+            task = null;
+            setEnableBotoes(false);
+        }
+
+        private void PrepararParaAquecer()
+        {
+            setEnableBotoes(true);
+
+            if (task == null)
+            {
+                task = new Thread(MostrarStatusSobreAquecimento);
+
+                MicroOndas.Instance.DefinirAquecimento(new OpcoesAjuste(funcao.tempo, funcao.potencia));
+                setPotenciaDisplay(MicroOndas.Instance.ajuste.potencia);
+
+                task.Start();
+            }
+            else
+                task.Resume();
         }
 
         private void btnFuncao(object sender, EventArgs e)
         {
             int index = (int)((Button)sender).Tag;
-            FuncoesDoUsuario funcao = MicroOndas.Instance.listFuncoesUsuario[index];
+            funcao = MicroOndas.Instance.listFuncoesUsuario[index];
 
-            Aquecer(funcao);
+            PrepararParaAquecer();
         }
 
         private void criarFuncoesPadroes()
@@ -116,7 +136,7 @@ namespace WindowsFormsApp1
 
         private void tbTempo_Scroll(object sender, EventArgs e)
         {
-            setTempoDisplay(((TrackBar)sender).Value);
+            setTempoDisplay(((TrackBar)sender).Value.ToString());
         }
 
         private void tbPotencia_Scroll(object sender, EventArgs e)
@@ -126,6 +146,10 @@ namespace WindowsFormsApp1
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            task.Abort();
+            setEnableBotoes(false);
+            setTempoDisplay("0");
+            setPotenciaDisplay(10);
             lblStatus.Text = "Operação cancelada.";
         }
 
@@ -133,13 +157,14 @@ namespace WindowsFormsApp1
         {
             if (tbTempo.Value == 0)
             {
-                setTempoDisplay(30);
+                setTempoDisplay("30");
                 setPotenciaDisplay(8);
             }
 
             try
             {
-                Aquecer(new FuncoesDoUsuario(new OpcoesAjuste(tbTempo.Value, tbPotencia.Value), "rápido", '.'));
+                funcao = new FuncoesDoUsuario(new OpcoesAjuste(tbTempo.Value, tbPotencia.Value), "rápido", '.');
+                PrepararParaAquecer();
             }
             catch(Exception ex)
             {
@@ -152,6 +177,12 @@ namespace WindowsFormsApp1
             FrmCadastroFuncoes frmCadastroFuncoes = new FrmCadastroFuncoes();
             frmCadastroFuncoes.ShowDialog();
             criarFuncoesUsuario();
+        }
+
+        private void btnPausar_Click(object sender, EventArgs e)
+        {
+            task.Suspend();
+            setEnableBotoes(false);
         }
     }
 }

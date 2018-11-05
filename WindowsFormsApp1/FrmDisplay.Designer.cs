@@ -276,6 +276,7 @@
             this.btnPausar.TabIndex = 1;
             this.btnPausar.Text = "Pausar";
             this.btnPausar.UseVisualStyleBackColor = true;
+            this.btnPausar.Click += new System.EventHandler(this.btnPausar_Click);
             // 
             // btnCancelar
             // 
