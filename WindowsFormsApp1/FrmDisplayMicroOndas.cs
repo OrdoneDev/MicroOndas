@@ -15,12 +15,10 @@ namespace WindowsFormsApp1
     {
         private static Thread task;
         private delegate void SetTextCallback(string texto);
-        private FuncoesDoUsuario funcao;
 
         public frmDisplay()
         {
             InitializeComponent();
-            criarFuncoesPadroes();
             criarFuncoesUsuario();
         }
 
@@ -81,7 +79,7 @@ namespace WindowsFormsApp1
             {
                 task = new Thread(MostrarStatusSobreAquecimento);
 
-                MicroOndas.Instance.DefinirAquecimento(new OpcoesAjuste(funcao.tempo, funcao.potencia));
+                MicroOndas.Instance.DefinirAquecimento(new OpcoesAjusteMicroOndas(funcao.tempo, funcao.potencia));
                 setPotenciaDisplay(MicroOndas.Instance.ajuste.potencia);
 
                 task.Start();
@@ -93,21 +91,9 @@ namespace WindowsFormsApp1
         private void btnFuncao(object sender, EventArgs e)
         {
             int index = (int)((Button)sender).Tag;
-            funcao = MicroOndas.Instance.listFuncoesUsuario[index];
 
+            MicroOndas.Instance.CarregarFuncaoUsuario(index);
             PrepararParaAquecer();
-        }
-
-        private void criarFuncoesPadroes()
-        {
-            MicroOndas.Instance.listFuncoesUsuario = new List<FuncoesDoUsuario>
-            {
-                new FuncoesDoUsuario(new OpcoesAjuste(120, 8), "Arroz", '-'),
-                new FuncoesDoUsuario(new OpcoesAjuste(55, 2), "Pipoca", '*'),
-                new FuncoesDoUsuario(new OpcoesAjuste(80, 4), "Macarrão", '_'),
-                new FuncoesDoUsuario(new OpcoesAjuste(100, 10), "Frango", '!'),
-                new FuncoesDoUsuario(new OpcoesAjuste(120, 10), "Bolo", '@')
-            };
         }
 
         private void criarBotaoFuncaoUsuario(FuncoesDoUsuario funcao, int index)
@@ -155,6 +141,9 @@ namespace WindowsFormsApp1
 
         private void btnLigar_Click(object sender, EventArgs e)
         {
+            OpcoesAjusteMicroOndas ajuste;
+            FuncoesDoUsuario funcao;
+
             if (tbTempo.Value == 0)
             {
                 setTempoDisplay("30");
@@ -163,7 +152,10 @@ namespace WindowsFormsApp1
 
             try
             {
-                funcao = new FuncoesDoUsuario(new OpcoesAjuste(tbTempo.Value, tbPotencia.Value), "rápido", '.');
+                ajuste = new OpcoesAjusteMicroOndas(tbTempo.Value, tbPotencia.Value);
+                funcao = new FuncoesDoUsuario(ajuste, "rápido", '.');
+
+                MicroOndas.Instance.DefinirFuncao(funcao);
                 PrepararParaAquecer();
             }
             catch(Exception ex)
@@ -174,7 +166,7 @@ namespace WindowsFormsApp1
 
         private void btnNovasFuncoes_Click(object sender, EventArgs e)
         {
-            FrmCadastroFuncoes frmCadastroFuncoes = new FrmCadastroFuncoes();
+            FrmCadastroFuncoesDoUsuario frmCadastroFuncoes = new FrmCadastroFuncoesDoUsuario();
             frmCadastroFuncoes.ShowDialog();
             criarFuncoesUsuario();
         }

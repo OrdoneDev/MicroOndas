@@ -8,4 +8,4 @@ c:\users\ana\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFor
 c:\users\ana\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 c:\users\ana\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 c:\users\ana\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.frmDisplay.resources
-c:\users\ana\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.FrmCadastroFuncoes.resources
+C:\Users\Ana\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.FrmCadastroFuncoesDoUsuario.resources

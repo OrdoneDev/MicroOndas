@@ -3,18 +3,18 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class FrmCadastroFuncoes : Form
+    public partial class FrmCadastroFuncoesDoUsuario : Form
     {
-        public FrmCadastroFuncoes()
+        public FrmCadastroFuncoesDoUsuario()
         {
             InitializeComponent();
-            new CadastroDeFuncoes();
+            CadastroDeFuncoesDoUsuario.CarregarFuncoesCadastradas();
             VincularListAoDataSource();
         }
 
         private void VincularListAoDataSource()
         {
-            funcoesDoUsuarioBindingSource.DataSource = CadastroDeFuncoes.listTemp;
+            funcoesDoUsuarioBindingSource.DataSource = CadastroDeFuncoesDoUsuario.ListTemp;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            CadastroDeFuncoes.SalvarModificacoes();
+            CadastroDeFuncoesDoUsuario.SalvarModificacoes();
             Close();
         }
 
@@ -34,7 +34,7 @@ namespace WindowsFormsApp1
             {
                 try
                 {
-                    funcoesDoUsuarioBindingSource.DataSource = CadastroDeFuncoes.CarregarArqFuncoes(openFileDialog1.FileName);
+                    funcoesDoUsuarioBindingSource.DataSource = CadastroDeFuncoesDoUsuario.CarregarArqFuncoes(openFileDialog1.FileName);
                 }
                 catch (Exception ex)
                 {

@@ -46,29 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CadastroDeFuncoes.cs" />
-    <Compile Include="FrmCadastroFuncoes.cs">
+    <Compile Include="CadastroDeFuncoesDoUsuario.cs" />
+    <Compile Include="FrmCadastroFuncoesDoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmCadastroFuncoes.Designer.cs">
-      <DependentUpon>FrmCadastroFuncoes.cs</DependentUpon>
+    <Compile Include="FrmCadastroFuncoesDoUsuario.Designer.cs">
+      <DependentUpon>FrmCadastroFuncoesDoUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmDisplay.cs">
+    <Compile Include="FrmDisplayMicroOndas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmDisplay.Designer.cs">
-      <DependentUpon>FrmDisplay.cs</DependentUpon>
+    <Compile Include="FrmDisplayMicroOndas.Designer.cs">
+      <DependentUpon>FrmDisplayMicroOndas.cs</DependentUpon>
     </Compile>
     <Compile Include="FuncoesDoUsuario.cs" />
     <Compile Include="MicroOndas.cs" />
-    <Compile Include="OpcoesAjuste.cs" />
+    <Compile Include="OpcoesAjusteMicroOndas.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmCadastroFuncoes.resx">
-      <DependentUpon>FrmCadastroFuncoes.cs</DependentUpon>
+    <EmbeddedResource Include="FrmCadastroFuncoesDoUsuario.resx">
+      <DependentUpon>FrmCadastroFuncoesDoUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmDisplay.resx">
-      <DependentUpon>FrmDisplay.cs</DependentUpon>
+    <EmbeddedResource Include="FrmDisplayMicroOndas.resx">
+      <DependentUpon>FrmDisplayMicroOndas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

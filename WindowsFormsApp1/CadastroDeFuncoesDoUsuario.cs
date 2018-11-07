@@ -3,24 +3,27 @@ using System.Collections.Generic;
 
 namespace WindowsFormsApp1
 {
-    internal class CadastroDeFuncoes
+    internal class CadastroDeFuncoesDoUsuario
     {
-        public static List<FuncoesDoUsuario> listTemp;
-
-        public CadastroDeFuncoes()
+        private static List<FuncoesDoUsuario> listTemp;
+        public static List<FuncoesDoUsuario> ListTemp
         {
-            listTemp = new List<FuncoesDoUsuario>();
-            CarregarFuncoesCadastradas();
-        }
+            get
+            {
+                if (listTemp == null)
+                    listTemp = new List<FuncoesDoUsuario>();
+                return listTemp;
+            }
+        }   
 
-        private void CarregarFuncoesCadastradas()
+        public static void CarregarFuncoesCadastradas()
         {
-            OpcoesAjuste ajuste;
+            OpcoesAjusteMicroOndas ajuste;
             FuncoesDoUsuario funcao;
 
             foreach (FuncoesDoUsuario funcaoTemp in MicroOndas.Instance.listFuncoesUsuario)
             {
-                ajuste = new OpcoesAjuste(funcaoTemp.tempo, funcaoTemp.potencia);
+                ajuste = new OpcoesAjusteMicroOndas(funcaoTemp.tempo, funcaoTemp.potencia);
                 funcao = new FuncoesDoUsuario(ajuste, funcaoTemp.nome, funcaoTemp.caracter);
 
                 listTemp.Add(funcao);
@@ -30,7 +33,7 @@ namespace WindowsFormsApp1
         public static List<FuncoesDoUsuario> CarregarArqFuncoes(String caminhoArq)
         {
             System.IO.StreamReader sReader;
-            OpcoesAjuste ajuste;
+            OpcoesAjusteMicroOndas ajuste;
             FuncoesDoUsuario funcao;
             String[] lines;
             string line;
@@ -43,7 +46,7 @@ namespace WindowsFormsApp1
                 while ((line = sReader.ReadLine()) != null)
                 {
                     lines = line.Split(',');
-                    ajuste = new OpcoesAjuste(Convert.ToInt32(lines[2]), Convert.ToInt32(lines[3]));
+                    ajuste = new OpcoesAjusteMicroOndas(Convert.ToInt32(lines[2]), Convert.ToInt32(lines[3]));
                     funcao = new FuncoesDoUsuario(ajuste, lines[0], lines[1][0]);
 
                     listTemp.Add(funcao);
@@ -61,7 +64,7 @@ namespace WindowsFormsApp1
 
         public static void SalvarModificacoes()
         {
-            MicroOndas.Instance.listFuncoesUsuario = CadastroDeFuncoes.listTemp;
+            MicroOndas.Instance.listFuncoesUsuario = CadastroDeFuncoesDoUsuario.listTemp;
         }
     }
 }

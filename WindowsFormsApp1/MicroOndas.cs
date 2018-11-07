@@ -8,11 +8,19 @@ namespace WindowsFormsApp1
         private static MicroOndas instance = null;
 
         public List<FuncoesDoUsuario> listFuncoesUsuario;
-        public OpcoesAjuste ajuste;
+        public FuncoesDoUsuario funcao;
+        public OpcoesAjusteMicroOndas ajuste;
 
-        MicroOndas()
+        private MicroOndas()
         {
-
+            listFuncoesUsuario = new List<FuncoesDoUsuario>
+            {
+                new FuncoesDoUsuario(new OpcoesAjusteMicroOndas(120, 8), "Arroz", '-'),
+                new FuncoesDoUsuario(new OpcoesAjusteMicroOndas(55, 2), "Pipoca", '*'),
+                new FuncoesDoUsuario(new OpcoesAjusteMicroOndas(80, 4), "Macarrão", '_'),
+                new FuncoesDoUsuario(new OpcoesAjusteMicroOndas(100, 10), "Frango", '!'),
+                new FuncoesDoUsuario(new OpcoesAjusteMicroOndas(120, 10), "Bolo", '@')
+            };
         }
 
         public static MicroOndas Instance
@@ -25,19 +33,30 @@ namespace WindowsFormsApp1
                     {
                         instance = new MicroOndas();
                     }
+
                     return instance;
                 }
             }
         }
 
-        public void DefinirAquecimento(OpcoesAjuste ajuste)
+        public void CarregarFuncaoUsuario(int indexFuncao)
+        {
+            funcao = listFuncoesUsuario[indexFuncao];
+        }
+
+        public void DefinirFuncao(FuncoesDoUsuario funcao)
+        {
+            this.funcao = funcao;
+        }
+
+        public void DefinirAquecimento(OpcoesAjusteMicroOndas ajuste)
         {
             this.ajuste = ajuste;
         }
 
-        public void DefinirAquecimento()
+        public void DefinirAquecimentoRapido()
         {
-            this.ajuste = new OpcoesAjuste(30, 8);
+            this.ajuste = new OpcoesAjusteMicroOndas(30, 8);
         }
     }
 }

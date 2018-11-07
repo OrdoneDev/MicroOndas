@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    internal class OpcoesAjuste
+    internal class OpcoesAjusteMicroOndas
     {
         private int _tempo;
         public int tempo
@@ -32,7 +32,7 @@
             }
         }
 
-        public OpcoesAjuste(int tempo, int potencia)
+        public OpcoesAjusteMicroOndas(int tempo, int potencia)
         {
             this.tempo = tempo;
             this.potencia = potencia;

@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    internal class FuncoesDoUsuario : OpcoesAjuste
+    internal class FuncoesDoUsuario : OpcoesAjusteMicroOndas
     {
         private string _nome;
         public string nome
@@ -36,7 +36,7 @@
             this.caracter = '.';
         }
 
-        public FuncoesDoUsuario(OpcoesAjuste ajuste, string nome, char caracter) : base (ajuste.tempo, ajuste.potencia)
+        public FuncoesDoUsuario(OpcoesAjusteMicroOndas ajuste, string nome, char caracter) : base (ajuste.tempo, ajuste.potencia)
         {
             this.nome = nome;
             this.caracter = caracter;
