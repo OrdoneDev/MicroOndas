@@ -103,6 +103,7 @@ namespace WindowsFormsApp1
         private void btnFuncao(object sender, EventArgs e)
         {
             int index = (int)((Button)sender).Tag;
+            task = null;
 
             MicroOndas.Instance.CarregarFuncaoUsuario(index);
             PrepararParaAquecer();
