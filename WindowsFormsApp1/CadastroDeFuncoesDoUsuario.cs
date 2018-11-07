@@ -21,12 +21,14 @@ namespace WindowsFormsApp1
             OpcoesAjusteMicroOndas ajuste;
             FuncoesDoUsuario funcao;
 
+            listTemp = null;
+
             foreach (FuncoesDoUsuario funcaoTemp in MicroOndas.Instance.listFuncoesUsuario)
             {
                 ajuste = new OpcoesAjusteMicroOndas(funcaoTemp.tempo, funcaoTemp.potencia);
                 funcao = new FuncoesDoUsuario(ajuste, funcaoTemp.nome, funcaoTemp.caracter);
 
-                listTemp.Add(funcao);
+                ListTemp.Add(funcao);
             }
         }
 
@@ -38,8 +40,9 @@ namespace WindowsFormsApp1
             String[] lines;
             string line;
 
-            listTemp = new List<FuncoesDoUsuario>();
             sReader = new System.IO.StreamReader(caminhoArq);
+
+            ListTemp.Clear();
 
             try
             {
@@ -49,7 +52,7 @@ namespace WindowsFormsApp1
                     ajuste = new OpcoesAjusteMicroOndas(Convert.ToInt32(lines[2]), Convert.ToInt32(lines[3]));
                     funcao = new FuncoesDoUsuario(ajuste, lines[0], lines[1][0]);
 
-                    listTemp.Add(funcao);
+                    ListTemp.Add(funcao);
                 }
             }
             catch (Exception ex)
@@ -59,12 +62,12 @@ namespace WindowsFormsApp1
 
             sReader.Close();
 
-            return listTemp;
+            return ListTemp;
         }
 
         public static void SalvarModificacoes()
         {
-            MicroOndas.Instance.listFuncoesUsuario = CadastroDeFuncoesDoUsuario.listTemp;
+            MicroOndas.Instance.listFuncoesUsuario = ListTemp;
         }
     }
 }

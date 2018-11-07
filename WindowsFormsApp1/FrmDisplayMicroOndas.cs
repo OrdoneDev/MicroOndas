@@ -15,6 +15,7 @@ namespace WindowsFormsApp1
     {
         private static Thread task;
         private delegate void SetTextCallback(string texto);
+        private delegate void SetBoolCallback(bool status);
 
         public frmDisplay()
         {
@@ -63,6 +64,7 @@ namespace WindowsFormsApp1
         private void MostrarStatusSobreAquecimento()
         {
             SetTextCallback textCallBack;
+            SetBoolCallback boolCallBack;
 
             for (int i = MicroOndas.Instance.funcao.tempo; i >= 0; i--)
             {
@@ -75,9 +77,11 @@ namespace WindowsFormsApp1
             }
 
             SystemSounds.Beep.Play();
-            lblStatus.Text = "Aquecida";
+            textCallBack = new SetTextCallback(setStatusAquecimentoDisplay);
+            this.Invoke(textCallBack, new object[] { "Aquecida" });
+            boolCallBack = new SetBoolCallback(setEnableBotoes);
+            this.Invoke(boolCallBack, new object[] { false });
             task = null;
-            setEnableBotoes(false);
         }
 
         private void PrepararParaAquecer()
@@ -159,6 +163,7 @@ namespace WindowsFormsApp1
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             task.Abort();
+            task = null;
             setEnableBotoes(false);
             setTempoDisplay((0).ToString());
             setPotenciaDisplay(10);
