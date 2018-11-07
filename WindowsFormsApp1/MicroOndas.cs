@@ -9,7 +9,6 @@ namespace WindowsFormsApp1
 
         public List<FuncoesDoUsuario> listFuncoesUsuario;
         public FuncoesDoUsuario funcao;
-        public OpcoesAjusteMicroOndas ajuste;
 
         private MicroOndas()
         {
@@ -49,14 +48,11 @@ namespace WindowsFormsApp1
             this.funcao = funcao;
         }
 
-        public void DefinirAquecimento(OpcoesAjusteMicroOndas ajuste)
+        public void DefinirFuncaoRapida()
         {
-            this.ajuste = ajuste;
-        }
+            OpcoesAjusteMicroOndas ajuste = new OpcoesAjusteMicroOndas(30, 8);
 
-        public void DefinirAquecimentoRapido()
-        {
-            this.ajuste = new OpcoesAjusteMicroOndas(30, 8);
+            this.funcao = new FuncoesDoUsuario(ajuste, "rápido", '.');
         }
     }
 }

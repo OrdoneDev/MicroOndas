@@ -22,13 +22,22 @@ namespace WindowsFormsApp1
             criarFuncoesUsuario();
         }
 
-        private void setTempoDisplay(string value)
+        private string valueToTime(string value)
         {
+            string minutos = "";
+            string segundos = "";
             string tempo = "";
 
-            tempo = Math.Round((double)(Convert.ToInt32(value) / 60)).ToString("00") + ":" + Math.Round((double)(Convert.ToInt32(value) % 60)).ToString("00");
+            minutos = Math.Round((double)(Convert.ToInt32(value) / 60)).ToString("00");
+            segundos = Math.Round((double)(Convert.ToInt32(value) % 60)).ToString("00");
+            tempo = minutos + ":" + segundos;
 
-            lblStatusTempo.Text = tempo;
+            return tempo;
+        }
+
+        private void setTempoDisplay(string value)
+        {
+            lblStatusTempo.Text = valueToTime(value);
             tbTempo.Value = Convert.ToInt32(value);
         }
 
@@ -53,15 +62,15 @@ namespace WindowsFormsApp1
 
         private void MostrarStatusSobreAquecimento()
         {
-            SetTextCallback d;
+            SetTextCallback textCallBack;
 
-            for (int i = MicroOndas.Instance.ajuste.tempo; i >= 0; i--)
+            for (int i = MicroOndas.Instance.funcao.tempo; i >= 0; i--)
             {
                 Application.DoEvents();
-                d = new SetTextCallback(setStatusAquecimentoDisplay);
-                this.Invoke(d, new object[] { "Aquecimento " + funcao.nome + new string(funcao.caracter, ((MicroOndas.Instance.ajuste.tempo - i) * MicroOndas.Instance.ajuste.potencia) % 40) });
-                d = new SetTextCallback(setTempoDisplay);
-                this.Invoke(d, new object[] { i.ToString() });
+                textCallBack = new SetTextCallback(setStatusAquecimentoDisplay);
+                this.Invoke(textCallBack, new object[] { "Aquecimento " + MicroOndas.Instance.funcao.nome + new string(MicroOndas.Instance.funcao.caracter, ((MicroOndas.Instance.funcao.tempo - i) * MicroOndas.Instance.funcao.potencia) % 40) });
+                textCallBack = new SetTextCallback(setTempoDisplay);
+                this.Invoke(textCallBack, new object[] { i.ToString() });
                 Thread.Sleep(1000);
             }
 
@@ -79,8 +88,7 @@ namespace WindowsFormsApp1
             {
                 task = new Thread(MostrarStatusSobreAquecimento);
 
-                MicroOndas.Instance.DefinirAquecimento(new OpcoesAjusteMicroOndas(funcao.tempo, funcao.potencia));
-                setPotenciaDisplay(MicroOndas.Instance.ajuste.potencia);
+                setPotenciaDisplay(MicroOndas.Instance.funcao.potencia);
 
                 task.Start();
             }
@@ -120,6 +128,24 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void DefinirConfiguracoes()
+        {
+            OpcoesAjusteMicroOndas ajuste;
+            FuncoesDoUsuario funcao;
+
+            if (tbTempo.Value == 0)
+            {
+                MicroOndas.Instance.DefinirFuncaoRapida();
+            }
+            else
+            {
+                ajuste = new OpcoesAjusteMicroOndas(tbTempo.Value, tbPotencia.Value);
+                funcao = new FuncoesDoUsuario(ajuste, "rápido", '.');
+
+                MicroOndas.Instance.DefinirFuncao(funcao);
+            }
+        }
+
         private void tbTempo_Scroll(object sender, EventArgs e)
         {
             setTempoDisplay(((TrackBar)sender).Value.ToString());
@@ -134,28 +160,17 @@ namespace WindowsFormsApp1
         {
             task.Abort();
             setEnableBotoes(false);
-            setTempoDisplay("0");
+            setTempoDisplay((0).ToString());
             setPotenciaDisplay(10);
             lblStatus.Text = "Operação cancelada.";
         }
 
         private void btnLigar_Click(object sender, EventArgs e)
         {
-            OpcoesAjusteMicroOndas ajuste;
-            FuncoesDoUsuario funcao;
-
-            if (tbTempo.Value == 0)
-            {
-                setTempoDisplay("30");
-                setPotenciaDisplay(8);
-            }
+            DefinirConfiguracoes();
 
             try
             {
-                ajuste = new OpcoesAjusteMicroOndas(tbTempo.Value, tbPotencia.Value);
-                funcao = new FuncoesDoUsuario(ajuste, "rápido", '.');
-
-                MicroOndas.Instance.DefinirFuncao(funcao);
                 PrepararParaAquecer();
             }
             catch(Exception ex)
